@@ -1,0 +1,43 @@
+.section-skills { background: var(--surface); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
+  gap: 1rem; max-width: 1100px;
+}
+.skill-pill {
+  border: 1px solid var(--border); border-radius: 5px;
+  padding: 1.4rem 1rem 1.1rem; background: var(--surface2);
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+  transform-style: preserve-3d;
+}
+.skill-pill::after {
+  content:''; position:absolute; bottom:0; left:0;
+  height:2px; width:100%; transform:scaleX(0);
+  transform-origin:left; transition:transform 0.35s ease;
+  background: var(--sc, var(--green));
+}
+.skill-pill:hover::after { transform:scaleX(1); }
+.skill-pill:hover { border-color:var(--sc); box-shadow:0 0 22px var(--sg); }
+
+.skill-pill i { font-size:2.2rem; line-height:1; transition:transform 0.3s ease; }
+.skill-pill:hover i { transform: scale(1.2) translateY(-2px); }
+
+.devicon-unrealengine-original { color:#fff !important; }
+
+.skill-name {
+  font-family:var(--font-mono); font-size:0.72rem;
+  letter-spacing:0.06em; color:var(--muted); text-align:center;
+  transition: color 0.25s;
+}
+.skill-pill:hover .skill-name { color: var(--sc); }
+
+.skill-pill[data-color="blue"]   { --sc:var(--blue);   --sg:var(--blue-glow);   }
+.skill-pill[data-color="yellow"] { --sc:#f7df1e;       --sg:rgba(247,223,30,.18); }
+.skill-pill[data-color="orange"] { --sc:#ff6b35;       --sg:rgba(255,107,53,.18); }
+.skill-pill[data-color="red"]    { --sc:var(--red);    --sg:var(--red-glow);    }
+.skill-pill[data-color="green"]  { --sc:var(--green);  --sg:var(--green-glow);  }
+.skill-pill[data-color="purple"] { --sc:var(--purple); --sg:var(--purple-glow); }
+.skill-pill[data-color="white"]  { --sc:#ffffff;       --sg:rgba(255,255,255,.1); }

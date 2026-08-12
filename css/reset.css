@@ -1,0 +1,19 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal scroll globally without clipping vertical */
+  overflow-x: hidden;
+}
+body {
+  /* Only clip horizontal — never clip vertical */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+a    { text-decoration: none; cursor: none; }
+ul   { list-style: none; }
+img  { max-width: 100%; display: block; }
+button { cursor: none; border: none; background: none; }

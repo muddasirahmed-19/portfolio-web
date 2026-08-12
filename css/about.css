@@ -1,0 +1,57 @@
+.section-about { background: var(--black); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 5rem; align-items: start; max-width: 1100px;
+}
+.about-text p {
+  font-size: 1.05rem; line-height: 1.85;
+  color: rgba(232,232,240,0.72); margin-bottom: 1.3rem;
+}
+.about-text strong { color: var(--green); font-weight: 600; }
+.about-text em     { color: var(--blue);  font-style: normal; }
+
+/* Stat cards */
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem; position: sticky; top: 7rem;
+}
+.stat-card {
+  border: 1px solid var(--border); padding: 1.6rem;
+  border-radius: 5px; background: var(--surface);
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.15s, box-shadow 0.3s;
+  transform-style: preserve-3d;
+}
+.stat-card::before {
+  content:''; position: absolute; top:0; left:0;
+  width:3px; height:100%; opacity:0; transition:opacity 0.3s;
+}
+.stat-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+.stat-card:hover::before { opacity:1; }
+
+.stat-red    { --sc:var(--red);    --sg:var(--red-glow);    }
+.stat-green  { --sc:var(--green);  --sg:var(--green-glow);  }
+.stat-blue   { --sc:var(--blue);   --sg:var(--blue-glow);   }
+.stat-purple { --sc:var(--purple); --sg:var(--purple-glow); }
+
+.stat-red::before    { background:var(--red);    }
+.stat-green::before  { background:var(--green);  }
+.stat-blue::before   { background:var(--blue);   }
+.stat-purple::before { background:var(--purple); }
+
+.stat-red:hover    { border-color:var(--red);    }
+.stat-green:hover  { border-color:var(--green);  }
+.stat-blue:hover   { border-color:var(--blue);   }
+.stat-purple:hover { border-color:var(--purple); }
+
+.stat-num {
+  font-family:var(--font-mono); font-size:2.5rem; font-weight:700;
+  color:var(--sc); line-height:1; margin-bottom:0.35rem;
+}
+.stat-label { font-size:0.82rem; color:var(--muted); letter-spacing:0.05em; }
+
+@media (max-width:900px) {
+  .about-grid { grid-template-columns:1fr; gap:3rem; }
+  .about-stats { position:static; }
+}
