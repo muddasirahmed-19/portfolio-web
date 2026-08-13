@@ -1,16 +1,12 @@
 .hero {
-  /* Use min-height with dvh fallback — accounts for mobile browser bars & zoom */
   min-height: 100vh;
   min-height: 100dvh;
-  /* Push content below fixed nav (70px) + breathing room */
-  padding: 110px 4rem 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  position: relative;
-  /* REMOVED overflow:hidden — this was clipping content at zoom */
-  box-sizing: border-box;
+  /* Top padding accounts for fixed nav; uses clamp so zoom doesn't clip it */
+  padding: clamp(5rem, 12vh, 9rem) clamp(1.2rem, 5vw, 4rem) clamp(3rem, 6vh, 5rem);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  position: relative; box-sizing: border-box;
+  /* NO overflow:hidden — was the main culprit */
 }
 
 .hero-bg {
@@ -21,27 +17,26 @@
     radial-gradient(ellipse 50% 40% at 50% 85%, rgba(0,255,136,0.05)   0%, transparent 70%);
 }
 
-/* Orbs overflow is handled by body, not hero */
-.orb-r { width: 400px; height: 400px; background: rgba(255,34,68,0.07);  top: 6%;     right: 6%;   animation-delay: 0s;  }
-.orb-g { width: 300px; height: 300px; background: rgba(0,255,136,0.06);  bottom: 15%; right: 25%;  animation-delay:-5s;  }
-.orb-b { width: 450px; height: 450px; background: rgba(61,142,255,0.06); top: 30%;    left: 0%;    animation-delay:-9s;  }
+.orb-r { width: 400px; height: 400px; background: rgba(255,34,68,0.07);  top: 6%;     right: 6%;  animation-delay: 0s;  }
+.orb-g { width: 300px; height: 300px; background: rgba(0,255,136,0.06);  bottom: 15%; right: 25%; animation-delay:-5s;  }
+.orb-b { width: 450px; height: 450px; background: rgba(61,142,255,0.06); top: 30%;    left: 0%;   animation-delay:-9s;  }
 
-.hero-content {
-  position: relative; z-index: 4; max-width: 880px;
-  width: 100%;
-}
+.hero-content { position: relative; z-index: 4; max-width: 880px; width: 100%; }
 
 .hero-eyebrow {
-  font-family: var(--font-mono); font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.65rem, 1vw, 0.78rem);
   letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 1.6rem;
+  color: var(--green); margin-bottom: clamp(1rem, 2.5vh, 1.6rem);
   display: flex; align-items: center; gap: 0.75rem;
 }
 
 .hero-name {
-  font-size: clamp(3rem, 9vw, 7.5rem);
+  /* clamp scales the name relative to viewport width — stays readable at any zoom */
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
   font-weight: 700; line-height: 0.95;
-  letter-spacing: -0.03em; margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(0.6rem, 1.5vh, 1rem);
 }
 .hero-name .r { color: var(--red);   text-shadow: 0 0 60px rgba(255,34,68,0.55);  }
 .hero-name .g { color: var(--green); text-shadow: 0 0 60px rgba(0,255,136,0.55);  }
@@ -49,35 +44,28 @@
 
 .hero-title {
   font-family: var(--font-mono);
-  font-size: clamp(0.9rem, 2.5vw, 1.45rem);
-  color: var(--muted); margin-bottom: 2rem; min-height: 2.2em;
+  font-size: clamp(0.85rem, 2vw, 1.45rem);
+  color: var(--muted);
+  margin-bottom: clamp(1rem, 2.5vh, 2rem);
+  min-height: 2.2em;
 }
-.hero-desc {
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-  line-height: 1.85; color: rgba(232,232,240,0.7);
-  max-width: 580px; margin-bottom: 2.8rem;
-}
-.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* Scroll indicator */
+.hero-desc {
+  font-size: clamp(0.88rem, 1.3vw, 1.1rem);
+  line-height: 1.85; color: rgba(232,232,240,0.7);
+  max-width: min(580px, 90%);
+  margin-bottom: clamp(1.5rem, 3.5vh, 2.8rem);
+}
+
+.hero-cta { display: flex; gap: clamp(0.6rem, 1.5vw, 1rem); flex-wrap: wrap; }
+
 .scroll-indicator {
-  position: absolute; bottom: 2.5rem; left: 4rem;
+  position: absolute;
+  bottom: clamp(1.2rem, 3vh, 2.5rem);
+  left: clamp(1.2rem, 5vw, 4rem);
   display: flex; flex-direction: column;
   align-items: center; gap: 6px; z-index: 4;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
-  .hero { padding: 100px 2.5rem 4rem; }
-  .scroll-indicator { left: 2.5rem; }
-}
-/* Mobile */
-@media (max-width: 768px) {
-  .hero { padding: 90px 1.5rem 4rem; }
-  .scroll-indicator { display: none; }
-}
-@media (max-width: 520px) {
-  .hero { padding: 85px 1.2rem 3rem; justify-content: flex-start; padding-top: 95px; }
-  .hero-cta { flex-direction: column; }
-  .hero-name { font-size: clamp(2.6rem, 12vw, 4rem); }
-}
+@media (max-width: 768px)  { .scroll-indicator { display: none; } }
+@media (max-width: 520px)  { .hero-cta { flex-direction: column; } }

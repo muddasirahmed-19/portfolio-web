@@ -1,14 +1,25 @@
-*, *::before, *::after { cursor: none !important; }
+/* ── Desktop only: hide real cursor and show RGB one ── */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
 
-.rgb-cursor {
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-2px, -2px);
-  will-change: left, top;
-  transition: opacity 0.2s;
-  animation: rgbGlow 2s linear infinite;
+  .rgb-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-2px, -2px);
+    will-change: left, top;
+    transition: opacity 0.2s;
+    animation: rgbGlow 2s linear infinite;
+    display: block;
+  }
+}
+
+/* ── Touch / mobile: hide the custom cursor entirely, restore real cursor ── */
+@media (hover: none), (pointer: coarse) {
+  .rgb-cursor { display: none !important; }
+  *, *::before, *::after { cursor: auto !important; }
+  a, button, [role="button"] { cursor: pointer !important; }
 }
 
 .rgb-cursor svg path.cursor-body {

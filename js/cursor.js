@@ -1,7 +1,11 @@
 /**
- * cursor.js — Windows-style arrow cursor cycling RGB colors
+ * cursor.js — RGB Windows-style cursor, desktop only
  */
 (function () {
+  // Detect touch / mobile — do nothing on those devices
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (isTouch) return;
+
   const el = document.getElementById('rgbCursor');
   if (!el) return;
 
@@ -13,12 +17,9 @@
           stroke="rgba(0,0,0,0.6)" stroke-width="0.8" stroke-linejoin="round"/>
   </svg>`;
 
-  let mx = -100, my = -100;
-
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    el.style.left = mx + 'px';
-    el.style.top  = my + 'px';
+    el.style.left = e.clientX + 'px';
+    el.style.top  = e.clientY + 'px';
   });
 
   document.addEventListener('mouseleave', () => el.style.opacity = '0');
@@ -26,7 +27,6 @@
 
   const hoverSel = 'a, button, .skill-pill, .project-card, .stat-card, .contact-card, .project-btn, .btn, .magnetic';
   document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverSel)) el.classList.add('cursor-hover');
-    else el.classList.remove('cursor-hover');
+    el.classList.toggle('cursor-hover', !!e.target.closest(hoverSel));
   });
 })();
