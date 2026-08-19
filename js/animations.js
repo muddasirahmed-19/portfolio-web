@@ -136,7 +136,23 @@
 
 
 /* ─────────────────────────────────────────
-   2. SLIDE-IN SCROLL OBSERVER
+  1B. SEAMLESS TECH BELT
+───────────────────────────────────────── */
+(function () {
+  const grid = document.querySelector('.skills-grid');
+  if (!grid || grid.dataset.duplicated) return;
+  grid.dataset.duplicated = 'true';
+  [...grid.children].forEach(card => {
+   const clone = card.cloneNode(true);
+   clone.classList.remove('slide-in-up', 'in');
+   clone.setAttribute('aria-hidden', 'true');
+   grid.appendChild(clone);
+  });
+})();
+
+
+/* ─────────────────────────────────────────
+  2. SLIDE-IN SCROLL OBSERVER
 ───────────────────────────────────────── */
 (function () {
   const els = document.querySelectorAll('.slide-in-left, .slide-in-right, .slide-in-up');

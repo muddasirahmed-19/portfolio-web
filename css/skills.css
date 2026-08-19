@@ -1,9 +1,30 @@
 .section-skills { background: rgba(255,255,255,0.28); }
 
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
-  gap: 1rem; max-width: 1100px;
+  display: flex; flex-wrap: nowrap; gap: 1.5rem; max-width: none;
+  width: max-content; padding: 1rem 0 1.5rem; overflow: visible;
+}
+.section-skills { overflow: hidden; }
+.skills-grid:hover .skill-pill { animation-play-state: paused; }
+.skill-pill { flex: 0 0 142px; animation: skillMarquee 44s linear infinite; }
+.skill-pill:nth-child(1) { animation-delay: -0s; }
+.skill-pill:nth-child(2) { animation-delay: -4s; }
+.skill-pill:nth-child(3) { animation-delay: -8s; }
+.skill-pill:nth-child(4) { animation-delay: -12s; }
+.skill-pill:nth-child(5) { animation-delay: -16s; }
+.skill-pill:nth-child(6) { animation-delay: -20s; }
+.skill-pill:nth-child(7) { animation-delay: -24s; }
+.skill-pill:nth-child(8) { animation-delay: -28s; }
+.skill-pill:nth-child(9) { animation-delay: -32s; }
+.skill-pill:nth-child(10) { animation-delay: -36s; }
+.skill-pill:nth-child(11) { animation-delay: -40s; }
+@keyframes skillMarquee {
+  0% { transform: translateX(110vw); }
+  100% { transform: translateX(-180px); }
+}
+@media (max-width: 600px) {
+  .skills-grid { gap: 1.25rem; }
+  .skill-pill { flex-basis: 118px; animation-duration: 44s; }
 }
 .skill-pill {
   border: 1px solid var(--border); border-radius: 5px;
@@ -40,3 +61,20 @@
 .skill-pill[data-color="green"]  { --sc:var(--green);  --sg:var(--green-glow);  }
 .skill-pill[data-color="purple"] { --sc:var(--purple); --sg:var(--purple-glow); }
 .skill-pill[data-color="white"]  { --sc:#ffffff;       --sg:rgba(255,255,255,.1); }
+
+/* Compact assembly-line tiles */
+.skills-grid { gap: 1.35rem; align-items: center; animation: skillsBelt 34s linear infinite; }
+.skill-pill {
+  flex: 0 0 auto; min-width: 142px; height: 74px; padding: 1rem 1.2rem;
+  border-radius: 0; justify-content: center; white-space: nowrap; animation: none;
+}
+.skill-pill i { display: block; font-size: 1.5rem; }
+.skill-name { font-size: 0.82rem; letter-spacing: 0.04em; }
+.skill-pill::after { display: none; }
+.skills-grid:hover { animation-play-state: paused; }
+@keyframes skillsBelt { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 600px) {
+  .skills-grid { gap: 1rem; }
+  .skill-pill { min-width: 118px; height: 62px; padding: 0.75rem 0.9rem; }
+  .skill-name { font-size: 0.7rem; }
+}
