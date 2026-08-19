@@ -186,15 +186,6 @@
   const buddy = document.getElementById('signalBuddy');
   if (!buddy) return;
 
-  function wander() {
-    if (!buddy.classList.contains('buddy-petted')) {
-      buddy.style.setProperty('--idle-x', `${(Math.random() - 0.5) * 52}px`);
-      buddy.style.setProperty('--idle-y', `${(Math.random() - 0.5) * 38}px`);
-    }
-    setTimeout(wander, 2600);
-  }
-  wander();
-
   document.addEventListener('pointermove', event => {
     if (!buddy.classList.contains('buddy-petted')) return;
     const followX = Math.max(-70, Math.min(70, (event.clientX - window.innerWidth * 0.78) * 0.12));
@@ -215,8 +206,6 @@
   });
   buddy.addEventListener('click', () => {
     buddy.classList.add('buddy-petted');
-    buddy.style.setProperty('--idle-x', '0px');
-    buddy.style.setProperty('--idle-y', '0px');
     buddy.classList.remove('buddy-spark-burst');
     void buddy.offsetWidth;
     buddy.classList.add('buddy-spark-burst');
