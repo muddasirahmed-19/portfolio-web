@@ -185,6 +185,7 @@
 (function () {
   const buddy = document.getElementById('signalBuddy');
   if (!buddy) return;
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
   document.addEventListener('pointermove', event => {
     if (!buddy.classList.contains('buddy-petted')) return;

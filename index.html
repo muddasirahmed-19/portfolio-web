@@ -931,7 +931,7 @@ footer {
 
 /* ── Interactive signal buddy ── */
 .signal-buddy {
-  position: fixed; top: 24%; right: clamp(2rem, 10vw, 10rem); z-index: 20;
+  position: absolute; top: 24%; right: clamp(2rem, 10vw, 10rem); z-index: 20;
   width: clamp(130px, 15vw, 190px); aspect-ratio: 1; padding: 0;
   color: var(--red); cursor: none; animation: none;
   translate: var(--follow-x, 0px) var(--follow-y, 0px);
@@ -939,6 +939,7 @@ footer {
   transition: filter 0.25s, scale 0.25s, translate 0.8s cubic-bezier(.22,1,.36,1);
 }
 .signal-buddy:hover { scale: 1.06; filter: drop-shadow(0 18px 32px rgba(217,119,6,0.35)); }
+.signal-buddy.buddy-petted { position: fixed; }
 .buddy-art { width: 100%; height: 100%; overflow: visible; animation: buddyFloat 5s ease-in-out infinite; }
 .buddy-bubble { position: absolute; top: -1.5rem; left: -1.8rem; padding: 0.45rem 0.7rem; border: 1px solid var(--red); border-radius: 5px; background: var(--surface2); color: var(--red); font: 0.68rem var(--font-mono); white-space: nowrap; box-shadow: 0 8px 20px rgba(15,23,42,0.12); animation: bubblePulse 2.4s ease-in-out infinite; }
 .buddy-bubble::after { content: ''; position: absolute; bottom: -6px; left: 1.1rem; width: 10px; height: 10px; border-right: 1px solid var(--red); border-bottom: 1px solid var(--red); background: var(--surface2); transform: rotate(45deg); }
@@ -954,7 +955,7 @@ footer {
 @keyframes buddyOrbit { to { transform: rotate(360deg); } }
 @keyframes buddySpark { 0% { opacity: 0; scale: 0.4; } 35% { opacity: 1; } 100% { opacity: 0; scale: 1.3; } }
 @media (max-width: 900px) { .signal-buddy { right: 1rem; opacity: 0.62; } }
-@media (max-width: 600px) { .signal-buddy { display: block; top: 30%; right: 0.45rem; width: 104px; opacity: 0.74; } }
+@media (max-width: 600px) { .signal-buddy { display: none; } }
 
 /* ── Build brief selector ── */
 
@@ -1678,6 +1679,7 @@ body {
 (function () {
   const buddy = document.getElementById('signalBuddy');
   if (!buddy) return;
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
   document.addEventListener('pointermove', event => {
     if (!buddy.classList.contains('buddy-petted')) return;
