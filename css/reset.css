@@ -13,7 +13,16 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-a    { text-decoration: none; cursor: none; }
+a    { text-decoration: none; }
 ul   { list-style: none; }
 img  { max-width: 100%; display: block; }
-button { cursor: none; border: none; background: none; }
+button { border: none; background: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  *, *::before, *::after { cursor: auto !important; }
+  a, button, [role="button"] { cursor: pointer !important; }
+}

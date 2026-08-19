@@ -22,13 +22,12 @@ html {
 
 body {
   overflow-x: hidden;
-  cursor: none;
 }
 
-a { text-decoration: none; cursor: none; }
+a { text-decoration: none; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
-button { cursor: none; border: none; background: none; }
+button { border: none; background: none; }
 
 /* === variables.css === */
 :root {
@@ -110,7 +109,15 @@ section { padding: 7rem 4rem; position: relative; z-index: 2; }
 @media (max-width: 768px) { section { padding: 5rem 1.5rem; } }
 
 /* === cursor.css === */
-*, *::before, *::after { cursor: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .rgb-cursor { display: none !important; }
+  *, *::before, *::after { cursor: auto !important; }
+  a, button, [role="button"] { cursor: pointer !important; }
+}
 
 .rgb-cursor {
   position: fixed;
@@ -1275,6 +1282,9 @@ footer {
  * cursor.js — Windows-style arrow cursor cycling RGB colors
  */
 (function () {
+  const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (isTouch) return;
+
   const el = document.getElementById('rgbCursor');
   if (!el) return;
 
