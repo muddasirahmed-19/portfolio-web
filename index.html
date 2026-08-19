@@ -402,6 +402,9 @@ section { padding: 7rem 4rem; position: relative; z-index: 2; }
 }
 .nav-links a:hover, .nav-links a.active { color:var(--green); }
 .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+.mobile-menu-toggle { display:none; width:34px; height:34px; border:1px solid var(--border-hover); color:var(--text); border-radius:4px; align-items:center; justify-content:center; cursor:none; }
+.mobile-menu-toggle svg { width:18px; height:18px; }
+.mobile-menu { display:none; }
 
 .nav-rgb-bar { display:flex; align-items:center; gap:5px; }
 .nav-rgb-bar .dot-r, .nav-rgb-bar .dot-g, .nav-rgb-bar .dot-b { width:7px; height:7px; border-radius:50%; }
@@ -420,7 +423,21 @@ section { padding: 7rem 4rem; position: relative; z-index: 2; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
 @media (max-width:768px) { #navbar { padding:1rem 1.5rem; } .nav-links { gap:1.5rem; } }
-@media (max-width:520px)  { .nav-links { display:none; } }
+@media (max-width:520px) {
+  #navbar { padding:0.65rem 0.9rem; gap:0.5rem; }
+  .nav-logo { font-size:0.72rem; }
+  .nav-links { display:none; }
+  .nav-right { gap:0.35rem; }
+  .nav-rgb-bar { display:none; }
+  .cv-btn { min-width:34px; height:34px; padding:0.4rem; justify-content:center; }
+  .cv-btn span, .theme-label { display:none; }
+  .theme-toggle { min-width:34px; width:34px; padding:0; }
+  .mobile-menu-toggle { display:inline-flex; }
+  .mobile-menu { position:fixed; top:58px; left:0; right:0; z-index:499; display:flex; flex-direction:column; padding:0.55rem; background:color-mix(in srgb, var(--black) 97%, transparent); border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform 0.25s ease; }
+  .mobile-menu.open { transform:translateY(0); }
+  .mobile-menu a { padding:0.85rem 0.7rem; color:var(--muted); font:0.75rem var(--font-mono); text-transform:uppercase; border-bottom:1px solid var(--border); }
+  .mobile-menu a:last-child { border-bottom:0; }
+}
 
 /* === hero.css === */
 .hero {
@@ -916,7 +933,7 @@ footer {
   position: fixed; top: 24%; right: clamp(2rem, 10vw, 10rem); z-index: 20;
   width: clamp(130px, 15vw, 190px); aspect-ratio: 1; padding: 0;
   color: var(--red); cursor: none; animation: none;
-  translate: var(--follow-x, 0px) var(--follow-y, 0px);
+  translate: calc(var(--follow-x, 0px) + var(--idle-x, 0px)) calc(var(--follow-y, 0px) + var(--idle-y, 0px));
   filter: drop-shadow(0 14px 24px rgba(217,119,6,0.2));
   transition: filter 0.25s, scale 0.25s, translate 0.8s cubic-bezier(.22,1,.36,1);
 }
@@ -936,7 +953,7 @@ footer {
 @keyframes buddyOrbit { to { transform: rotate(360deg); } }
 @keyframes buddySpark { 0% { opacity: 0; scale: 0.4; } 35% { opacity: 1; } 100% { opacity: 0; scale: 1.3; } }
 @media (max-width: 900px) { .signal-buddy { right: 1rem; opacity: 0.62; } }
-@media (max-width: 600px) { .signal-buddy { display: none; } }
+@media (max-width: 600px) { .signal-buddy { display: block; top: 30%; right: 0.45rem; width: 104px; opacity: 0.74; } }
 
 /* ── Build brief selector ── */
 
@@ -997,8 +1014,14 @@ body {
         </svg>
         <span class="theme-label" id="themeLabel">Dark</span>
       </button>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  </div>
 
   <!-- CV MODAL -->
   <div class="modal-overlay" id="cvModal">
@@ -1402,6 +1425,17 @@ body {
 /* === theme toggle === */
 (function () {
   const toggle = document.getElementById('themeToggle');
+  const mobileToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileToggle?.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    mobileToggle.setAttribute('aria-expanded', String(open));
+    mobileToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  });
+  mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+  }));
   if (!toggle) return;
 
   const savedTheme = localStorage.getItem('portfolio-theme');
@@ -1644,6 +1678,15 @@ body {
   const buddy = document.getElementById('signalBuddy');
   if (!buddy) return;
 
+  function wander() {
+    if (!buddy.classList.contains('buddy-petted')) {
+      buddy.style.setProperty('--idle-x', `${(Math.random() - 0.5) * 52}px`);
+      buddy.style.setProperty('--idle-y', `${(Math.random() - 0.5) * 38}px`);
+    }
+    setTimeout(wander, 2600);
+  }
+  wander();
+
   document.addEventListener('pointermove', event => {
     if (!buddy.classList.contains('buddy-petted')) return;
     const followX = Math.max(-70, Math.min(70, (event.clientX - window.innerWidth * 0.78) * 0.12));
@@ -1664,6 +1707,8 @@ body {
   });
   buddy.addEventListener('click', () => {
     buddy.classList.add('buddy-petted');
+    buddy.style.setProperty('--idle-x', '0px');
+    buddy.style.setProperty('--idle-y', '0px');
     buddy.classList.remove('buddy-spark-burst');
     void buddy.offsetWidth;
     buddy.classList.add('buddy-spark-burst');

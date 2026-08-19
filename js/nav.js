@@ -4,6 +4,17 @@
 (function () {
   const navbar = document.getElementById('navbar');
   const links  = document.querySelectorAll('.nav-links a');
+  const mobileToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileToggle?.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    mobileToggle.setAttribute('aria-expanded', String(open));
+    mobileToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  });
+  mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+  }));
 
   const toggle = document.getElementById('themeToggle');
   if (toggle) {
