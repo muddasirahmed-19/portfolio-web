@@ -6,6 +6,8 @@
   <title>Muddasir Ahmed — Full Stack Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
+  <link rel="icon" type="image/svg+xml" href="assets/fav_icon.svg?v=2"/>
+  <link rel="shortcut icon" href="assets/fav_icon.svg?v=2"/>
   <style>
 
 /* === reset.css === */
@@ -430,8 +432,9 @@ section { padding: 7rem 4rem; position: relative; z-index: 2; }
   .nav-links { display:none; }
   .nav-right { gap:0.35rem; }
   .nav-rgb-bar { display:none; }
-  .cv-btn { min-width:34px; height:34px; padding:0.4rem; justify-content:center; }
-  .cv-btn span, .theme-label { display:none; }
+  .cv-btn { min-width:72px; height:34px; padding:0.4rem 0.55rem; justify-content:center; font-size:0.58rem; letter-spacing:0.04em; }
+  .cv-btn span { display:inline; }
+  .theme-label { display:none; }
   .theme-toggle { min-width:34px; width:34px; padding:0; }
   .mobile-menu-toggle { display:inline-flex; }
   .mobile-menu { position:fixed; top:58px; left:0; right:0; z-index:499; display:flex; flex-direction:column; padding:0.55rem; background:color-mix(in srgb, var(--black) 97%, transparent); border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform 0.25s ease; }
@@ -1083,11 +1086,13 @@ body {
         <span class="project-tag tag-featured" style="margin-bottom:0">CampusFind PK — Demo</span>
       </div>
       <div class="video-wrapper">
-        <video id="demoVideo" controls preload="metadata" playsinline>
+        <video id="demoVideo" controls preload="metadata" playsinline muted>
           <source src="assets/campusfind-demo.mp4" type="video/mp4">
-          <p class="video-fallback">
-          </p>
         </video>
+        <div class="video-fallback" id="videoFallback" hidden>
+          This demo could not be loaded in the embedded player.<br>
+          <a href="assets/campusfind-demo.mp4" target="_blank" rel="noopener">Open the video file directly</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1896,10 +1901,15 @@ body {
   const demoBtn         = document.getElementById('demoBtn');
   const videoModalClose = document.getElementById('videoModalClose');
   const demoVideo       = document.getElementById('demoVideo');
+  const videoFallback   = document.getElementById('videoFallback');
+
+  demoVideo && demoVideo.addEventListener('error', () => {
+    if (videoFallback) videoFallback.hidden = false;
+  });
 
   demoBtn && demoBtn.addEventListener('click', () => {
     openModal(videoModal);
-    // Small delay so animation is visible before play
+    demoVideo && demoVideo.load();
     setTimeout(() => { if (demoVideo) demoVideo.play().catch(() => {}); }, 350);
   });
 

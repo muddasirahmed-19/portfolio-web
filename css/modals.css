@@ -139,6 +139,8 @@
   color: var(--muted); font-size: 0.9rem; line-height: 1.8;
   font-family: var(--font-mono);
 }
+.video-fallback[hidden] { display: none; }
+.video-fallback a { color: var(--green); text-decoration: underline; }
 .video-fallback code {
   color: var(--green); background: rgba(0,255,136,0.08);
   padding: 0.1rem 0.35rem; border-radius: 3px;

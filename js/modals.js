@@ -32,9 +32,15 @@
   const demoBtn         = document.getElementById('demoBtn');
   const videoModalClose = document.getElementById('videoModalClose');
   const demoVideo       = document.getElementById('demoVideo');
+  const videoFallback   = document.getElementById('videoFallback');
+
+  demoVideo && demoVideo.addEventListener('error', () => {
+    if (videoFallback) videoFallback.hidden = false;
+  });
 
   demoBtn && demoBtn.addEventListener('click', () => {
     openModal(videoModal);
+    demoVideo && demoVideo.load();
     // Small delay so animation is visible before play
     setTimeout(() => { if (demoVideo) demoVideo.play().catch(() => {}); }, 350);
   });
