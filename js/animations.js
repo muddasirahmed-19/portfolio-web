@@ -12,9 +12,10 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  let W, H, particles = [];
+  let W, H, particles = [], embers = [];
   const COUNT = 80;
-  const COLORS = ['#ff2244', '#00ff88', '#3d8eff'];
+  const EMBER_COUNT = 42;
+  const COLORS = ['#ffffff', '#c7ced8', '#7f8997'];
 
   function resize() {
     W = canvas.width  = window.innerWidth;
@@ -36,10 +37,29 @@
     this.reset();
   }
 
+  function Ember() {
+    this.reset = function () {
+      this.x = Math.random() * W;
+      this.y = H + Math.random() * 40;
+      this.r = Math.random() * 1.8 + 0.8;
+      this.vx = (Math.random() - 0.5) * 0.32;
+      this.vy = -(Math.random() * 0.55 + 0.25);
+      this.life = 0;
+      this.maxLife = Math.random() * 180 + 100;
+      this.alpha = Math.random() * 0.45 + 0.4;
+    };
+    this.reset();
+  }
+
   for (let i = 0; i < COUNT; i++) {
     const p = new Particle();
     p.life = Math.random() * p.maxLife; // stagger
     particles.push(p);
+  }
+  for (let i = 0; i < EMBER_COUNT; i++) {
+    const ember = new Ember();
+    ember.life = Math.random() * ember.maxLife;
+    embers.push(ember);
   }
 
   // Connect nearby particles with lines
@@ -89,6 +109,22 @@
       if (p.life >= p.maxLife) p.reset();
     });
 
+    embers.forEach(ember => {
+      ember.x += ember.vx + Math.sin(ember.life * 0.04) * 0.08;
+      ember.y += ember.vy;
+      ember.life++;
+      const fade = Math.min(ember.life / 28, (ember.maxLife - ember.life) / 35, 1);
+      const alpha = ember.alpha * Math.max(0, fade);
+      ctx.beginPath();
+      ctx.arc(ember.x, ember.y, ember.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(217,119,6,${alpha})`;
+      ctx.shadowColor = '#D97706';
+      ctx.shadowBlur = 7;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      if (ember.life >= ember.maxLife || ember.y < -20) ember.reset();
+    });
+
     requestAnimationFrame(animate);
   }
 
@@ -96,6 +132,7 @@
   window.addEventListener('resize', resize, { passive: true });
   animate();
 })();
+
 
 
 /* ─────────────────────────────────────────
@@ -139,6 +176,40 @@
       setTimeout(() => name.classList.remove('glitch'), 400);
     }, 5000);
   }
+})();
+
+
+/* ─────────────────────────────────────────
+   3B. INTERACTIVE SIGNAL BUDDY
+───────────────────────────────────────── */
+(function () {
+  const buddy = document.getElementById('signalBuddy');
+  if (!buddy) return;
+
+  document.addEventListener('pointermove', event => {
+    if (!buddy.classList.contains('buddy-petted')) return;
+    const followX = Math.max(-70, Math.min(70, (event.clientX - window.innerWidth * 0.78) * 0.12));
+    const followY = Math.max(-55, Math.min(55, (event.clientY - window.innerHeight * 0.42) * 0.12));
+    buddy.style.setProperty('--follow-x', `${followX}px`);
+    buddy.style.setProperty('--follow-y', `${followY}px`);
+    const rect = buddy.getBoundingClientRect();
+    const x = Math.max(-7, Math.min(7, ((event.clientX - rect.left) / rect.width - 0.5) * 9));
+    const y = Math.max(-7, Math.min(7, ((event.clientY - rect.top) / rect.height - 0.5) * 9));
+    buddy.style.setProperty('--eye-x', `${x}px`);
+    buddy.style.setProperty('--eye-y', `${y}px`);
+  });
+  document.addEventListener('pointerleave', () => {
+    buddy.style.setProperty('--follow-x', '0px');
+    buddy.style.setProperty('--follow-y', '0px');
+    buddy.style.setProperty('--eye-x', '0px');
+    buddy.style.setProperty('--eye-y', '0px');
+  });
+  buddy.addEventListener('click', () => {
+    buddy.classList.add('buddy-petted');
+    buddy.classList.remove('buddy-spark-burst');
+    void buddy.offsetWidth;
+    buddy.classList.add('buddy-spark-burst');
+  });
 })();
 
 

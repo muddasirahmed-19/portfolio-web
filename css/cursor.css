@@ -27,17 +27,17 @@
 }
 
 @keyframes rgbFill {
-  0%   { fill: #ff2244; }
-  33%  { fill: #00ff88; }
-  66%  { fill: #3d8eff; }
-  100% { fill: #ff2244; }
+  0% { fill: #D97706; }
+  33% { fill: #F59E0B; }
+  66% { fill: #334155; }
+  100% { fill: #D97706; }
 }
 
 @keyframes rgbGlow {
-  0%   { filter: drop-shadow(0 0 6px #ff2244); }
-  33%  { filter: drop-shadow(0 0 6px #00ff88); }
-  66%  { filter: drop-shadow(0 0 6px #3d8eff); }
-  100% { filter: drop-shadow(0 0 6px #ff2244); }
+  0% { filter: drop-shadow(0 0 6px #D97706); }
+  33% { filter: drop-shadow(0 0 8px #F59E0B); }
+  66% { filter: drop-shadow(0 0 6px #334155); }
+  100% { filter: drop-shadow(0 0 6px #D97706); }
 }
 
 .rgb-cursor.cursor-hover {
@@ -46,8 +46,8 @@
 }
 
 @keyframes rgbGlowBig {
-  0%   { filter: drop-shadow(0 0 14px #ff2244); }
-  33%  { filter: drop-shadow(0 0 14px #00ff88); }
-  66%  { filter: drop-shadow(0 0 14px #3d8eff); }
-  100% { filter: drop-shadow(0 0 14px #ff2244); }
+  0% { filter: drop-shadow(0 0 14px #D97706); }
+  33% { filter: drop-shadow(0 0 18px #F59E0B); }
+  66% { filter: drop-shadow(0 0 14px #334155); }
+  100% { filter: drop-shadow(0 0 14px #D97706); }
 }

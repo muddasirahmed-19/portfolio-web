@@ -11,7 +11,6 @@
     'Frontend Craftsman',
     'Backend Architect',
     'Python & AI/ML Explorer',
-    'Game Dev Enthusiast',
   ];
 
   let pi = 0, ci = 0, deleting = false;

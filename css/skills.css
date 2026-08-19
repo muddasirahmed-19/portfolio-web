@@ -1,4 +1,4 @@
-.section-skills { background: var(--surface); }
+.section-skills { background: rgba(255,255,255,0.28); }
 
 .skills-grid {
   display: grid;
@@ -25,7 +25,6 @@
 .skill-pill i { font-size:2.2rem; line-height:1; transition:transform 0.3s ease; }
 .skill-pill:hover i { transform: scale(1.2) translateY(-2px); }
 
-.devicon-unrealengine-original { color:#fff !important; }
 
 .skill-name {
   font-family:var(--font-mono); font-size:0.72rem;

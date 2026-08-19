@@ -1,9 +1,17 @@
 body {
-  background: var(--black);
+  background-color: var(--black);
+  background-image: radial-gradient(circle at 84% 18%, rgba(217,119,6,0.08), transparent 25%), radial-gradient(circle at 12% 72%, rgba(51,65,85,0.06), transparent 28%), repeating-linear-gradient(0deg, rgba(51,65,85,0.025) 0, rgba(51,65,85,0.025) 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, rgba(217,119,6,0.018) 0, rgba(217,119,6,0.018) 1px, transparent 1px, transparent 7px);
+  background-image: radial-gradient(circle at 84% 18%, rgba(217,119,6,0.12), transparent 28%), radial-gradient(circle at 18% 54%, rgba(217,119,6,0.045), transparent 24%), radial-gradient(circle at 12% 72%, rgba(51,65,85,0.06), transparent 28%), repeating-linear-gradient(0deg, rgba(51,65,85,0.025) 0, rgba(51,65,85,0.025) 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, rgba(217,119,6,0.018) 0, rgba(217,119,6,0.018) 1px, transparent 1px, transparent 7px);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-display);
   position: relative; z-index: 1;
 }
+[data-theme="dark"] body {
+  background-image: radial-gradient(circle at 84% 18%, rgba(217,119,6,0.18), transparent 28%), radial-gradient(circle at 18% 54%, rgba(217,119,6,0.08), transparent 24%), radial-gradient(circle at 12% 72%, rgba(203,213,225,0.08), transparent 28%), repeating-linear-gradient(0deg, rgba(203,213,225,0.025) 0, rgba(203,213,225,0.025) 1px, transparent 1px, transparent 5px), repeating-linear-gradient(90deg, rgba(217,119,6,0.025) 0, rgba(217,119,6,0.025) 1px, transparent 1px, transparent 7px);
+}
+[data-theme="dark"] .section-skills,
+[data-theme="dark"] .section-contact { background: rgba(15,23,42,0.36); }
 .mono-dim { font-family: var(--font-mono); color: var(--muted); }
 
 /* Fluid section padding — scales with viewport so zoom never breaks layout */
@@ -43,10 +51,10 @@ section {
 .btn-primary {
   background: var(--green); color: var(--black); font-weight: 700;
   border: 2px solid var(--green);
-  box-shadow: 0 0 28px rgba(0,255,136,0.25);
+  box-shadow: 0 0 28px rgba(217,119,6,0.2);
   transition: box-shadow 0.25s, transform 0.25s;
 }
-.btn-primary:hover { box-shadow: 0 0 55px rgba(0,255,136,0.5); }
+.btn-primary:hover { box-shadow: 0 0 55px rgba(217,119,6,0.35); }
 .btn-outline {
   background: transparent; color: var(--text);
   border: 1px solid var(--border-hover);

@@ -12,14 +12,13 @@
 .hero-bg {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 55% at 80% 50%, rgba(61,142,255,0.09)  0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 15% 40%, rgba(255,34,68,0.07)   0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 50% 85%, rgba(0,255,136,0.05)   0%, transparent 70%);
+    radial-gradient(ellipse 60% 55% at 80% 50%, rgba(217,119,6,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 15% 40%, rgba(51,65,85,0.06) 0%, transparent 70%);
 }
 
-.orb-r { width: 400px; height: 400px; background: rgba(255,34,68,0.07);  top: 6%;     right: 6%;  animation-delay: 0s;  }
-.orb-g { width: 300px; height: 300px; background: rgba(0,255,136,0.06);  bottom: 15%; right: 25%; animation-delay:-5s;  }
-.orb-b { width: 450px; height: 450px; background: rgba(61,142,255,0.06); top: 30%;    left: 0%;   animation-delay:-9s;  }
+.orb-r { width: 400px; height: 400px; background: rgba(217,119,6,0.05); top: 6%; right: 6%; animation-delay: 0s; }
+.orb-g { width: 300px; height: 300px; background: rgba(51,65,85,0.04); bottom: 15%; right: 25%; animation-delay:-5s; }
+.orb-b { width: 450px; height: 450px; background: rgba(217,119,6,0.035); top: 30%; left: 0%; animation-delay:-9s; }
 
 .hero-content { position: relative; z-index: 4; max-width: 880px; width: 100%; }
 
@@ -38,9 +37,7 @@
   letter-spacing: -0.03em;
   margin-bottom: clamp(0.6rem, 1.5vh, 1rem);
 }
-.hero-name .r { color: var(--red);   text-shadow: 0 0 60px rgba(255,34,68,0.55);  }
-.hero-name .g { color: var(--green); text-shadow: 0 0 60px rgba(0,255,136,0.55);  }
-.hero-name .b { color: var(--blue);  text-shadow: 0 0 60px rgba(61,142,255,0.55); }
+.hero-name .r, .hero-name .g, .hero-name .b { color: var(--red); text-shadow: 0 0 40px rgba(217,119,6,0.22); }
 
 .hero-title {
   font-family: var(--font-mono);
@@ -52,7 +49,7 @@
 
 .hero-desc {
   font-size: clamp(0.88rem, 1.3vw, 1.1rem);
-  line-height: 1.85; color: rgba(232,232,240,0.7);
+  line-height: 1.85; color: var(--muted);
   max-width: min(580px, 90%);
   margin-bottom: clamp(1.5rem, 3.5vh, 2.8rem);
 }

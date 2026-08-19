@@ -1,6 +1,6 @@
-.section-contact { background: var(--surface); }
+.section-contact { background: rgba(255,255,255,0.28); }
 .contact-inner { max-width: 820px; }
-.contact-desc { font-size:1.05rem; line-height:1.85; color:rgba(232,232,240,0.7); margin-bottom:2.8rem; }
+.contact-desc { font-size:1.05rem; line-height:1.85; color:var(--muted); margin-bottom:2.8rem; }
 .contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; }
 
 .contact-card {

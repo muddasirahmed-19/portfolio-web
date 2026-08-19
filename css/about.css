@@ -1,4 +1,4 @@
-.section-about { background: var(--black); }
+.section-about { background: transparent; }
 
 .about-grid {
   display: grid; grid-template-columns: 1.1fr 0.9fr;
@@ -6,7 +6,7 @@
 }
 .about-text p {
   font-size: 1.05rem; line-height: 1.85;
-  color: rgba(232,232,240,0.72); margin-bottom: 1.3rem;
+  color: var(--muted); margin-bottom: 1.3rem;
 }
 .about-text strong { color: var(--green); font-weight: 600; }
 .about-text em     { color: var(--blue);  font-style: normal; }
