@@ -877,6 +877,10 @@ footer {
   max-height: 70vh;
   outline: none;
 }
+video::-webkit-media-controls,
+video::-webkit-media-controls-panel {
+  background: transparent !important;
+}
 .video-fallback {
   background: rgba(255,255,255,0.03);
   border: 1px dashed var(--border-hover);
@@ -1112,7 +1116,7 @@ body {
         <span class="project-tag tag-featured" style="margin-bottom:0">CampusFind PK — Demo</span>
       </div>
       <div class="video-wrapper">
-        <video id="demoVideo" controls preload="metadata" playsinline muted>
+        <video id="demoVideo" preload="metadata" playsinline muted>
           <source src="assets/campusfind-demo.mp4" type="video/mp4">
         </video>
         <div class="video-fallback" id="videoFallback" hidden>
