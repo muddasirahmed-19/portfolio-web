@@ -127,9 +127,6 @@
   max-height: 70vh;
   outline: none;
 }
-/* Custom video accent color in supported browsers */
-.video-wrapper video::-webkit-media-controls-panel { background: var(--surface); }
-
 .video-fallback {
   background: rgba(255,255,255,0.03);
   border: 1px dashed var(--border-hover);
